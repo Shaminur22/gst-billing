@@ -31,11 +31,11 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
                                     <label for="validationCustom01">Type</label>
-                                    <select name="party_type" required class="form-control border-bottom" id="validationCustom01" placeholder="Please select Type">
+                                    <select name="party_type" required class="form-control border-bottom">
                                         <option value="">Please select</option>
-                                        <option value="client" @if(old('party_type')=='client' ) selected @endif>Client</option>
-                                        <option value="vendor" @if(old('party_type')=='vendor' ) selected @endif>Vendor</option>
-                                        <option value="employee" @if(old('party_type')=='employee' ) selected @endif>Employee</option>
+                                        <option value="GOLD_USER" {{ old('party_type')=='GOLD_USER' ? 'selected' : '' }}>Gold User</option>
+                                        <option value="SILVER_USER" {{ old('party_type')=='SILVER_USER' ? 'selected' : '' }}>Silver User</option>
+                                        <option value="GENERAL_USER" {{ old('party_type')=='GENERAL_USER' ? 'selected' : '' }}>General User</option>
                                     </select>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
-                                    <label for="validationCustom02">IFSC Code</label>
+                                    <label for="validationCustom02">Unique Code</label>
                                     <input type="text" value="{{ old('ifsc_code') }}" name="ifsc_code" class="form-control border-bottom " id="validationCustom02" placeholder="Enter IFSC Code">
                                 </div>
                             </div>

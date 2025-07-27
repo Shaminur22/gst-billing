@@ -1,119 +1,90 @@
 @extends('layout.app')
 
-
 @section('content')
+<div class="container-fluid">
+    <!-- Dashboard Header -->
+    <div class="row mb-4">
+        <div class="col">
+            <h4 class="page-title font-weight-bold">DASHBOARD</h4>
+        </div>
+    </div>
 
-        <!-- Start Content-->
-        <div class="container-fluid">
-          <!-- start page title -->
-          <div class="row">
-            <div class="col-12">
-              <div class="page-title-box">
-                <h4 class="page-title font-weight-bold">DASHBORAD</h4>
-              </div>
-            </div>
-          </div>
-          <!-- end page title -->
-
-          <div class="row">
-            <div class="col-md-6 col-xl-3">
-              <div class="widget-rounded-circle card-box">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-lg rounded-circle bg-soft-primary border-primary border">
-                      <i class="fe-heart font-22 avatar-title text-primary"></i>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="text-right">
-                      <h3 class="mt-1">
-                        $<span data-plugin="counterup">58,947</span>
-                      </h3>
-                      <p class="text-muted mb-1 text-truncate">
-                        Total Revenue
-                      </p>
-                    </div>
-                  </div>
+    <!-- Stats Cards -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Revenue</h5>
+                    <p class="card-text h3">৳ {{ number_format($totalRevenue, 2) }}</p>
                 </div>
-                <!-- end row-->
-              </div>
-              <!-- end widget-rounded-circle-->
             </div>
-            <!-- end col-->
-
-            <div class="col-md-6 col-xl-3">
-              <div class="widget-rounded-circle card-box">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-lg rounded-circle bg-soft-success border-success border">
-                      <i class="fe-shopping-cart font-22 avatar-title text-success"></i>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="text-right">
-                      <h3 class="text-dark mt-1">
-                        <span data-plugin="counterup">127</span>
-                      </h3>
-                      <p class="text-muted mb-1 text-truncate">
-                        Today's Sales
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <!-- end row-->
-              </div>
-              <!-- end widget-rounded-circle-->
-            </div>
-            <!-- end col-->
-
-            <div class="col-md-6 col-xl-3">
-              <div class="widget-rounded-circle card-box">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-lg rounded-circle bg-soft-info border-info border">
-                      <i class="fe-bar-chart-line- font-22 avatar-title text-info"></i>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="text-right">
-                      <h3 class="text-dark mt-1">
-                        <span data-plugin="counterup">0.58</span>%
-                      </h3>
-                      <p class="text-muted mb-1 text-truncate">Conversion</p>
-                    </div>
-                  </div>
-                </div>
-                <!-- end row-->
-              </div>
-              <!-- end widget-rounded-circle-->
-            </div>
-            <!-- end col-->
-
-            <div class="col-md-6 col-xl-3">
-              <div class="widget-rounded-circle card-box">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
-                      <i class="fe-eye font-22 avatar-title text-warning"></i>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="text-right">
-                      <h3 class="text-dark mt-1">
-                        <span data-plugin="counterup">78.41</span>k
-                      </h3>
-                      <p class="text-muted mb-1 text-truncate">
-                        Today's Visits
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <!-- end row-->
-              </div>
-              <!-- end widget-rounded-circle-->
-            </div>
-            <!-- end col-->
-          </div>
         </div>
 
-@endsection 
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Today's Sales</h5>
+                    <p class="card-text h3">{{ $todaysSales }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">This Month's Revenue</h5>
+                    <p class="card-text h3">৳ {{ number_format($monthlySales, 2) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sales Overview Chart -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Sales Overview (Monthly)</h5>
+                    <canvas id="salesChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const chartData = @json($monthlyData);
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: 'Revenue',
+                data: chartData,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+@endsection

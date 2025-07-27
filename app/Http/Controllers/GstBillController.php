@@ -15,11 +15,19 @@ class GstBillController extends Controller
         return view("gst-bill.index", compact('bills'));
     }
 
-    public function addGstBill()
-    {
-        $data['parties'] = Party::where('party_type', 'Client')->orderBy('full_name')->get();
-        return view('gst-bill.add',$data);
-    }
+public function addGstBill()
+{
+    // Fetch all parties ordered by id ascending
+    $data['parties'] = Party::orderBy('id', 'asc')->get();
+
+    // Generate next invoice number
+    $lastInvoice = GstBill::orderBy('id', 'desc')->first();
+    $nextNumber = $lastInvoice ? $lastInvoice->id + 1 : 1;
+    $data['invoice_no'] = 'INV-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT);
+
+    return view('gst-bill.add', $data);
+}
+
 
     //create GstBill
         public function createGstBill(Request $request)

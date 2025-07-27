@@ -1,84 +1,83 @@
 @extends('layout.app')
 
 @section('content')
-<!-- Start Content-->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <div class="page-title-box">
-                <h2 class="page-title font-weight-bold text-uppercase">Manage Bills</h2>
-            </div>
-        </div>
+    <h2 class="mt-4 mb-3">Manage Bills</h2>
 
-    </div>
-    <!-- end page title -->
-    <div class="row">
-        <div class="col-12">
-            <!--Include alert file-->
-            @include('include.alert')
+    <a href="{{ route('add-gst-bill') }}" class="btn btn-primary mb-3">
+        <i class="mdi mdi-plus"></i> New Bill
+    </a>
 
-            <div class="card-box">
-                <a href="{{ route('add-gst-bill') }}" class="btn btn-sm btn-blue waves-effect waves-light float-right">
-                    <i class="mdi mdi-plus-circle"></i> Create New Bill
-                </a>
-                <h4 class="header-title mb-4 text-uppercase">All Bills</h4>
+    <table id="bill-table" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Invoice No</th>
+                <th>Client’s Info</th>
+                <th>Billing Info</th>
+                <th>Invoice Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($bills as $i => $bill)
+            <tr>
+                <td>{{ $i + 1 }}</td>
+                <td>#{{ $bill->invoice_no }}</td>
 
-                <table id="basic-datatable" class="table table-hover m-0 table-centered dt-responsive nowrap w-100 table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Sr No</th>
-                            <th>Invoice No</th>
-                            <th>Cielnt's Info</th>
-                            <th>Billing Info</th>
-                            <th>Invoice Date</th>
-                            <th class="hidden-sm">Action</th>
-                        </tr>
-                    </thead>
+                <td>
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Name:</strong>
+                            {{ optional($bill->party)->full_name ?? '—' }}
+                        </li>
+                        <li><strong>Phone:</strong>
+                            {{ optional($bill->party)->phone_no ?? '—' }}
+                        </li>
+                    </ul>
+                </td>
 
-                    <tbody>
-                        <?php $i = 1 ?>
-                        @foreach($bills as $index => $bill)
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>#{{ $bill->invoice_no }}</td>
-                            <td>
-                                <ul class="list-unstyled">
-                                    <li><b>Name:</b> <span> {{ $bill->party->full_name }}</span></li>
-                                    <li><b>Phone:</b> <span> {{ $bill->party->phone_no }}</span></li>
-                                </ul>
-                            </td>
+                <td>
+                    <ul class="list-unstyled mb-0">
+                        <li><strong>Total:</strong> ৳{{ $bill->total_amount }}</li>
+                        <li><strong>Tax:</strong> ৳{{ $bill->tax_amount }}</li>
+                        <li><strong>Net:</strong> ৳{{ $bill->net_amount }}</li>
+                    </ul>
+                </td>
 
-                            <td>
-                                <ul class="list-unstyled">
-                                    <li><b>Total Amount:</b> <span>₹{{ $bill->total_amount }}</span></li>
-                                    <li><b>TAX:</b> <span>₹{{ $bill->tax_amount }}</span></li>
-                                    <li><b>Net Amount:</b> <span>₹{{ $bill->net_amount }}</span></li>
-                                </ul>
-                            </td>
+                <td>{{ \Carbon\Carbon::parse($bill->invoice_date)->format('d-m-Y') }}</td>
 
-                            <td>{{ date("d-m-Y", strtotime($bill->invoice_date)) }}</td>
-                            <td>
-                                <div class="btn-group dropdown">
-                                    <a href="javascript: void(0);" class="table-action-btn dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="{{ route('delete', ['gst_bills', $bill->id]) }}"><i class="mdi mdi-delete mr-2 text-muted font-18 vertical-middle"></i>Delete</a>
-                                        <a class="dropdown-item" href="{{ route('print-gst-bill', $bill->id) }}"><i class="mdi mdi-printer mr-2 text-muted font-18 vertical-middle"></i>Print</a>
-                                        <a class="dropdown-item" href="{{ route('print-gst-bill', [$bill->id, 'usd']) }}"><i class="mdi mdi-printer mr-2 text-muted font-18 vertical-middle"></i>Print USD Bill</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div><!-- end col -->
-        </div>
-    </div>
-    <!-- end row -->
+                <td>
+                    <div class="btn-group">
+                        <a href="{{ route('delete', ['gst_bills', $bill->id]) }}"
+                           onclick="return confirm('Delete this bill?')"
+                           class="btn btn-sm btn-danger">Delete</a>
+                        <a href="{{ route('print-gst-bill', $bill->id) }}"
+                           class="btn btn-sm btn-secondary">Print</a>
 
-    <!-- ============================================================== -->
-    <!-- End Page content -->
-    <!-- ============================================================== -->
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
+{{-- Include DataTables JS if you want search/pagination --}}
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+    $(function(){
+        $('#bill-table').DataTable({
+            pageLength: 10,
+            ordering: true,
+            searching: true
+        });
+    });
+</script>
+
+<style>
+.table-hover tbody tr:hover {
+    background-color: #d3ddebff !important; /* Bootstrap info color */
+    color: black; /* Change text color to white */
+    transition: background-color 0.2s ease-in-out;
+}</style>
 @endsection

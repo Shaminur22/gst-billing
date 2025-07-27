@@ -10,26 +10,29 @@ class PartyController extends Controller
 {
     // Function to display the list of parties
 
-    public function index(){
+public function index()
+{
+    $parties = Party::select(
+        'id',
+        'party_type',
+        'full_name',
+        'phone_no',
+        'address',
+        'account_holder_name',
+        'account_no',
+        'bank_name',
+        'ifsc_code',
+        'branch_address',
+        'created_at'
+    )
+    ->orderBy('id', 'asc')
+    ->get();
+   
 
-        // Fetch all parties from the database
-               $parties = Party::select(
-            'id',
-            'party_type',
-            'full_name',
-            'phone_no',
-            'address',
-            'account_holder_name',
-            'account_no',
-            'bank_name',
-            'ifsc_code',
-            'branch_address',
-            'created_at'
-        )->orderBy('id', 'desc')->get(); 
-        // Pass the parties to the view
-        return view('party.index', compact('parties'));
-    
-    }
+    return view('party.index', compact('parties'));
+}
+
+
 
     
     #Function to show the form for adding a new party

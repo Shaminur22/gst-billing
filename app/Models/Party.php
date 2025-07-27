@@ -14,6 +14,7 @@ class Party extends Model
 
     //Fillable attributes
      protected $fillable = [
+        'id',
         'party_type',
         'full_name',
         'phone_no',

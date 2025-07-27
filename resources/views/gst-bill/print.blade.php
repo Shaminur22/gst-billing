@@ -1,219 +1,126 @@
-
-
 @extends('layout.app')
- 
-       <div class="content-page">
-            <div class="content">
 
-                <!-- Start Content-->
-                <div class="container-fluid">
+@section('content')
+<!-- Start Content-->
+<div class="container-fluid">
 
-                    <!-- start page title -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="page-title-box">
-                                <h4 class="page-title">Invoice</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end page title -->
+    <!-- Company Header -->
+    <div class="row">
+        <div class="col text-center">
+            <h1>{{ $company->name ?? 'ABC Company' }}</h1>
+            <p>{{ $company->address_line1 ?? 'Address ABC' }}<br>
+               <strong>Email:</strong> {{ $company->email ?? 'abc@gmail.com' }}
+               | <strong>Web:</strong> {{ $company->website ?? 'www.abc.com' }}
+               | <strong>Mob:</strong> {{ $company->phone ?? '******' }}</p>
+            <p><strong>PAN NO:</strong> {{ $company->pan_no ?? '******' }}
+               | <strong>GSTIN NO:</strong> {{ $company->gstin ?? '********' }}</p>
+        </div>
+    </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card-box">
-                                <!-- Logo & title -->
-                                <div class="clearfix ">
-                                    <div class="text-center">
-                                        <h1>ABC Company</h1>
-                                    </div>
-                                    <div class="text-center">
-                                        <span>Bikaner-334001 (Raj.) India</span><br>
-                                        <span><b>Email:</b> abc@gmail.com | <b>Web:</b> www.abc.com | <b>Mob:</b>
-                                            +919601230111</span>
-                                    </div>
-                                    <div class="row pt-3 pb-1">
-                                        <div class="col-6 text-right">
-                                            <span class="text-right"><b>PAN NO:</b> TEST02984</span>
-                                        </div>
-                                        <div class="col-6">
-                                            <span>
-                                                <b>GSTIN NO:</b> TEST92895C0DE3</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end row -->
-                                <div class="row">
-                                    <div class="col-12 text-center border">
-                                        <b>
-                                            <h3 class="m-1">GST INVOICE </h3>
-                                        </b>
-                                    </div>
-                                </div>
-                                <div class="row text-center ">
-                                    <div class="col-md-6 border p-0">
-                                        <b>
-                                            <div class="border-bottom">
-                                                <h5>Details of the Client |
-                                                    Billed to</h5>
-                                            </div>
-                                        </b>
-                                        <div class="row pl-2 pt-1">
-                                            <div class="col-12 d-flex justiy-content-start">
-                                                <label for="">Name : </label>
-                                                <input type="text" style="border: none; line-height: -10;">
-                                            </div>
-                                        </div>
-                                        <div class="row pl-2">
-                                            <div class="col-12 d-flex justiy-content-start">
-                                                <label for="">Address : </label>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="row pl-2">
-                                            <div class="col-12 d-flex justiy-content-start">
-                                                <label for="">Phone : </label>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="row pl-2 pb-1">
-                                            <div class="col-9 d-flex justiy-content-start">
-                                                <label for="">State : </label>
-                                                <span></span>
-                                            </div>
-                                            <div class="col-3 d-flex px-1">
-                                                <label for="">State Code | <span><b></b></span> </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 border p-0">
-                                        <b>
-                                            <div class="border-bottom">
-                                                <h5>Invoice Details</h5>
-                                            </div>
-                                        </b>
-                                        <div class="row pl-2 pt-1">
-                                            <div class="col-12 d-flex justiy-content-start">
-                                                <label for="">Revrce Charge : </label>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="row pl-2">
-                                            <div class="col-12 d-flex justiy-content-start">
-                                                <label for="">Invoice No : </label>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="row pl-2">
-                                            <div class="col-12 d-flex justiy-content-start">
-                                                <label for="">Invoice Date : </label>
-                                                <span></span>
-                                            </div>
-                                        </div>
-                                        <div class="row pl-2 pb-1">
-                                            <div class="col-9 d-flex justiy-content-start">
-                                                <label for="">State : </label>
-                                                <span></span>
-                                            </div>
-                                            <div class="col-3 d-flex px-1">
-                                                <label for="">State Code | <span><b>08</b></span> </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end row -->
+    <div class="row">
+        <div class="col-12 text-center border py-2">
+            <h3 class="m-0">GST INVOICE</h3>
+        </div>
+    </div>
 
-                                <div class="row">
-                                    <div class="col-12 p-0">
-                                        <div class="table-responsive table-bordered">
-                                            <table class="table mt-4 table-centered border">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="py-0"
-                                                            style="width: 8%; background-color: rgb(130, 210, 241); color: black;">
-                                                            SR NO.</th>
-                                                        <th class="py-0"
-                                                            style="background-color: rgb(130, 210, 241); color: black;">
-                                                            DESCRIPTION</th>
-                                                        <th style="width: 15%; background-color: rgb(130, 210, 241); color: black;"
-                                                            class="text-center py-1">
-                                                            AMOUNT
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>
-                                                            <b>Web Design</b> <br />
-                                                            2 Pages static website - my website
-                                                        </td>
-                                                        <td class="text-center">$660.00</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> <!-- end table-responsive -->
-                                    </div> <!-- end col -->
-                                </div>
-                                <!-- end row -->
-
-                                <div class="row border">
-                                    <div class="col-sm-6 col-lg-9 p-0">
-                                        <div class="clearfix pt-2 pb-2 mt-1 mb-1 ml-1 text-center"
-                                            style="background-color: rgba(218, 218, 218, 0.37); border-radius: 5px;">
-                                            <h5><b>Bank Details</b></h5>
-                                            <p><b>UCO BANK, ACCOUNT NO:</b> 18000111220033 <b>IFSC:</b> UCBA0001011</p>
-                                        </div>
-                                    </div> <!-- end col -->
-                                    <div class="col-sm-6 col-lg-3 mt-1">
-                                        <ul class="list-unstyled">
-                                            <li><b>Total :</b> <span class="float-right"><i
-                                                        class="fas fa-rupee-sign"></i> 0.00</span></li>
-                                            <li><b>CGST :</b><span class="float-right"><i class="fas fa-rupee-sign"></i>
-                                                    0.00</span></li>
-                                            <li><b>SGST :</b><span class="float-right"><i class="fas fa-rupee-sign"></i>
-                                                    0.00</span></li>
-                                            <li><b>IGST :</b><span class="float-right"><i class="fas fa-rupee-sign"></i>
-                                                    0.00</span></li>
-                                            <li><b>Total GST :</b><span class="float-right"><i
-                                                        class="fas fa-rupee-sign"></i> 0.00</span>
-                                            </li>
-                                            <li><b>Grand Total :</b><span class="float-right"><i
-                                                        class="fas fa-rupee-sign"></i> 0.00</span>
-                                            </li>
-                                        </ul>
-                                        <div class="clearfix"></div>
-                                    </div> <!-- end col -->
-                                </div>
-                                <!-- end row -->
-
-                                <div class="mt-4 mb-1">
-                                    <div class="text-right">
-                                        <i class="mdi mdi-printer mr-0 font-18 vertical-middle"></i>
-                                        <select style="width: 40%; border: none; border-bottom: 1px solid lightgray;">
-                                            <option value="">All Copies</option>
-                                            <option value="">Orignal: Client Copy</option>
-                                            <option value="">Orignal: Office Copy</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mt-4 mb-1">
-                                    <div class="text-right d-print-none">
-                                        <a href="javascript:window.print()"
-                                            class="btn btn-primary waves-effect waves-light">Print <i
-                                                class="mdi mdi-printer mr-1"></i></a>
-                                        <a href="{{route('manage-gst-bills')}}" class="btn btn-danger waves-effect waves-light">All
-                                            Bills <i class="fas fa-rupee-sign"></i></a>
-                                    </div>
-                                </div>
-                            </div> <!-- end card-box -->
-                        </div> <!-- end col -->
-                    </div>
-                    <!-- end row -->
-
-                </div> <!-- container -->
-
-            </div> <!-- content -->
-
-
+    <!-- Client & Invoice Details -->
+    <div class="row text-center my-3">
+        <div class="col-md-6 border p-2">
+            <h5 class="border-bottom pb-1">Details of the Client | Billed to</h5>
+            <p><strong>Name:</strong> {{ optional($bill->party)->full_name }}</p>
+            <p><strong>Address:</strong> {{ optional($bill->party)->address }}</p>
+            <p><strong>Phone:</strong> {{ optional($bill->party)->phone_no }}</p>
 
         </div>
+
+        <div class="col-md-6 border p-2">
+            <h5 class="border-bottom pb-1">Invoice Details</h5>
+            <p><strong>Reverse Charge:</strong> No</p>
+            <p><strong>Invoice No:</strong> #{{ $bill->invoice_no }}</p>
+            <p><strong>Invoice Date:</strong> {{ \Carbon\Carbon::parse($bill->invoice_date)->format('d-m-Y') }}</p>
+
+        </div>
+    </div>
+
+    <!-- Item Table -->
+    <div class="row">
+        <div class="col-12 p-0">
+            <div class="table-responsive table-bordered">
+                <table class="table mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th style="width:8%">SR NO.</th>
+                            <th>DESCRIPTION</th>
+                            <th style="width:15%" class="text-center">AMOUNT ({{ $currency==='usd' ? 'USD' : 'BDT' }})</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <strong>{{ $bill->item_description }}</strong><br>
+                                {{-- add more item detail lines here if needed --}}
+                            </td>
+                            <td class="text-center">
+                                {{ $currency==='usd' 
+                                    ? number_format($bill->total_amount_usd, 2) 
+                                    : number_format($bill->total_amount, 2) 
+                                }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bank Details & Totals -->
+    <div class="row border mt-3">
+        <div class="col-lg-9 p-2">
+                        <div class="bg-light p-3 rounded">
+                        <h5 class="mb-1"><strong>Branches Details</strong></h5>
+                        <p>
+                            <strong>Branch Name:</strong> <br>
+                            <strong>Phone Number:</strong> <br>
+                            <strong>Email:</strong> <br>
+                            <strong>Branch Location:</strong> 
+                        </p>
+                        </div>
+
+        </div>
+        <div class="col-lg-3 p-2">
+            <ul class="list-unstyled mb-0">
+                <li><strong>Total :</strong>
+                    <span class="float-right">৳ {{ number_format($bill->total_amount, 2) }}</span>
+                </li>
+                <li><strong>VAT :</strong>
+                    <span class="float-right">৳ {{ number_format($bill->cgst_amount, 2) }}</span>
+                </li>
+                <li><strong>SDT :</strong>
+                    <span class="float-right">৳ {{ number_format($bill->sgst_amount, 2) }}</span>
+                </li>
+                <li><strong>CDT :</strong>
+                    <span class="float-right">৳ {{ number_format($bill->igst_amount, 2) }}</span>
+                </li>
+                <li><strong>Total Tax :</strong>
+                    <span class="float-right">৳ {{ number_format($bill->tax_amount, 2) }}</span>
+                </li>
+                <li><strong>Grand Total :</strong>
+                    <span class="float-right">৳ {{ number_format($bill->net_amount, 2) }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Print Controls -->
+    <div class="text-right my-3 d-print-none">
+        <button onclick="window.print()" class="btn btn-primary">
+            <i class="mdi mdi-printer"></i> Print
+        </button>
+        <a href="{{ route('manage-gst-bills') }}" class="btn btn-secondary">
+            <i class="fas fa-list"></i> All Bills
+        </a>
+    </div>
+
+</div>
+@endsection

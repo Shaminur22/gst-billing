@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
   <meta content="Coderthemes" name="author" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,11 +21,35 @@
 
   <!-- Custom style (if needed) -->
   <link rel="stylesheet" href="{{ asset('style.css') }}">
+
+  <!-- Custom white text for Geneva and dropdown -->
+  <style>
+    /* Username "Geneva" text white */
+    .navbar-custom .pro-user-name {
+      color: #fff !important;
+    }
+
+    /* Dropdown menu background dark */
+    .dropdown-menu.profile-dropdown {
+      background-color: #222 !important;
+    }
+
+    /* Dropdown menu links text white */
+    .dropdown-menu.profile-dropdown a.dropdown-item {
+      color: #fff !important;
+    }
+
+    /* Dropdown menu links hover/focus */
+    .dropdown-menu.profile-dropdown a.dropdown-item:hover,
+    .dropdown-menu.profile-dropdown a.dropdown-item:focus {
+      background-color: #444 !important;
+      color: #fff !important;
+    }
+  </style>
 </head>
 
 <body data-layout-mode="detached"
   data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "sidebar": { "color": "light", "size": "default", "showuser": true}, "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
-
   <!-- Begin page -->
   <div id="wrapper">
     <!-- Topbar Start -->
@@ -41,9 +65,6 @@
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown">
-              <div class="dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome !</h6>
-              </div>
               <a href="javascript:void(0);" class="dropdown-item notify-item">
                 <i class="fe-user"></i>
                 <span>My Account</span>
