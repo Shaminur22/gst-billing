@@ -1,6 +1,6 @@
 @if(session('status'))
 <div class="col-md-6">
-    <div class="alert alert-success py-1 px-2" style="font-size: 0.85rem;">
+    <div class="alert alert-dark py-1 px-2" style="font-size: 0.85rem;">
         {{ session('status') }}
     </div>
 </div>
