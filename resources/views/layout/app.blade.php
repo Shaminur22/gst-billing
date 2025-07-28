@@ -24,28 +24,30 @@
 
   <!-- Custom white text for Geneva and dropdown -->
   <style>
-    /* Username "Geneva" text white */
-    .navbar-custom .pro-user-name {
-      color: #fff !important;
-    }
+  /* Cyan to Blue Gradient for Topbar */
+  .navbar-custom {
+    background: linear-gradient(to right, #00e5ff, #2196f3) !important;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
 
-    /* Dropdown menu background dark */
-    .dropdown-menu.profile-dropdown {
-      background-color: #222 !important;
-    }
+  /* White text/icons inside topbar */
+  .topnav-menu > li > a,
+  .navbar-custom .pro-user-name,
+  .navbar-custom .pro-user-name i {
+    color: #fff !important;
+  }
 
-    /* Dropdown menu links text white */
-    .dropdown-menu.profile-dropdown a.dropdown-item {
-      color: #fff !important;
-    }
+  /* Hover state for topnav items */
+  .topnav-menu > li > a:hover {
+    color: #e3f2fd !important;
+  }
 
-    /* Dropdown menu links hover/focus */
-    .dropdown-menu.profile-dropdown a.dropdown-item:hover,
-    .dropdown-menu.profile-dropdown a.dropdown-item:focus {
-      background-color: #444 !important;
-      color: #fff !important;
-    }
-  </style>
+  /* Optional: Make logo text white if needed */
+  .logo-box span {
+    color: #fff !important;
+  }
+</style>
 </head>
 
 <body data-layout-mode="detached"

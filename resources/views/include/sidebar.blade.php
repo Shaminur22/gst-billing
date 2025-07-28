@@ -1,21 +1,53 @@
 <!-- ========== Left Sidebar Start ========== -->
 <style>
   .left-side-menu {
-    background-color: #475569ff; /* Sidebar background */
-    color: #fff; /* Default white text */
+    background: linear-gradient(90deg, #00eaff 0%, #009dff 100%);
+    color: #fff;
   }
 
-  /* All main menu links white */
+  /* Main menu links */
   .left-side-menu a {
     color: #fff !important;
     text-decoration: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
   }
 
-  /* Hover and focus - keep white text and add slight background effect */
-  .left-side-menu a:hover,
-  .left-side-menu a:focus {
-    color: #000000 !important;
-    background-color: rgba(255,255,255,0.1); /* subtle highlight */
+  /* Underline flash animation */
+  .left-side-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 6px; /* adjust to align under text */
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, #fff);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 2px;
+  }
+
+  .left-side-menu a:hover::after,
+  .left-side-menu a:focus::after {
+    transform: scaleX(1);
+  }
+
+  /* Right arrow icon after text on hover */
+  .left-side-menu a .hover-arrow {
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-weight: bold;
+    color: #fff; /* bright accent color */
+    user-select: none;
+  }
+
+  .left-side-menu a:hover .hover-arrow,
+  .left-side-menu a:focus .hover-arrow {
+    opacity: 1;
   }
 
   /* User box text white */
@@ -30,15 +62,49 @@
     stroke: #fff !important;
   }
 
-  /* Submenu links white */
+  /* Submenu links */
   .left-side-menu .nav-second-level a {
-    color: #000000 !important;
+    color: #fff !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.3s;
   }
 
-  /* Submenu hover white with subtle background */
-  .left-side-menu .nav-second-level a:hover {
-    color: #000000 !important;
-    background-color: rgba(255,255,255,0.15);
+  /* Submenu underline flash */
+  .left-side-menu .nav-second-level a::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, #fff);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 2px;
+  }
+
+  .left-side-menu .nav-second-level a:hover::after,
+  .left-side-menu .nav-second-level a:focus::after {
+    transform: scaleX(1);
+  }
+
+  /* Submenu right arrow on hover */
+  .left-side-menu .nav-second-level a .hover-arrow {
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    font-weight: bold;
+    color: #fff;
+    user-select: none;
+  }
+
+  .left-side-menu .nav-second-level a:hover .hover-arrow,
+  .left-side-menu .nav-second-level a:focus .hover-arrow {
+    opacity: 1;
   }
 </style>
 
@@ -55,46 +121,67 @@
       <ul id="side-menu">
 
         <li>
-          <a href="{{ route('dashboard') }}">
+          <a href="{{ route('dashboard') }}" title="Dashboard">
             <i data-feather="home"></i>
-            <span> Dashboard </span>
+            <span>Dashboard</span>
+            <span class="hover-arrow">→</span>
           </a>
         </li>
 
         <li>
-          <a href="#sidebarEcommerce" data-toggle="collapse">
+          <a href="#sidebarEcommerce" data-toggle="collapse" title="Customers">
             <i data-feather="users"></i>
-            <span> Customers </span>
+            <span>Customers</span>
             <span class="menu-arrow"></span>
+            <span class="hover-arrow">→</span>
           </a>
           <div class="collapse" id="sidebarEcommerce">
             <ul class="nav-second-level">
               <li>
-                <a href="{{route('add-party')}}"><i data-feather="plus" class="pr-0 mr-1"></i>Add New</a>
+                <a href="{{route('add-party')}}" title="Add New Customer">
+                  <i data-feather="plus" class="pr-0 mr-1"></i>
+                  Add New
+                  <span class="hover-arrow">→</span>
+                </a>
               </li>
               <li>
-                <a href="{{route('manage-parties')}}"><i data-feather="list" class="pr-0 mr-1"></i>Manage Customers</a>
+                <a href="{{route('manage-parties')}}" title="Manage Customers">
+                  <i data-feather="list" class="pr-0 mr-1"></i>
+                  Manage Customers
+                  <span class="hover-arrow">→</span>
+                </a>
               </li>
             </ul>
           </div>
         </li>
+
         <li>
-          <a href="#sidebarCrm" data-toggle="collapse">
+          <a href="#sidebarCrm" data-toggle="collapse" title="GST Billing">
             <i data-feather="edit"></i>
-            <span> GST Billing </span>
+            <span> Billing</span>
             <span class="menu-arrow"></span>
+            <span class="hover-arrow">→</span>
           </a>
           <div class="collapse" id="sidebarCrm">
             <ul class="nav-second-level">
               <li>
-                <a href="{{ route('add-gst-bill') }}"><i data-feather="plus" class="pr-0 mr-1"></i>Create bill</a>
+                <a href="{{ route('add-gst-bill') }}" title="Create Bill">
+                  <i data-feather="plus" class="pr-0 mr-1"></i>
+                  Create bill
+                  <span class="hover-arrow">→</span>
+                </a>
               </li>
               <li>
-                <a href="{{ route('manage-gst-bills') }}"><i data-feather="list" class="pr-0 mr-1"></i>Manage all bills</a>
+                <a href="{{ route('manage-gst-bills') }}" title="Manage All Bills">
+                  <i data-feather="list" class="pr-0 mr-1"></i>
+                  Manage all bills
+                  <span class="hover-arrow">→</span>
+                </a>
               </li>
             </ul>
           </div>
         </li>
+
       </ul>
     </div>
     <!-- End Sidebar -->
