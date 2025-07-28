@@ -85,7 +85,7 @@
 <style>
 /* Hover effect for table rows */
 .table-hover tbody tr:hover {
-    background-color: #d3ddebff !important;
+    background-color: #fff !important;
     color: black;
     transition: background-color 0.2s ease-in-out;
 }

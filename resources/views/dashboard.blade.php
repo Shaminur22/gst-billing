@@ -46,9 +46,10 @@
         </div>
     </div>
 
-    <!-- Sales Chart -->
+    <!-- Charts Section -->
     <div class="row">
-        <div class="col-md-12">
+        <!-- Line Chart -->
+        <div class="col-md-8">
             <div class="card shadow border-0 gradient-card-chart hover-effect">
                 <div class="card-body">
                     <h5 class="text-gradient mb-3">Sales Overview (Monthly)</h5>
@@ -56,64 +57,21 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- About Project (Interactive Cards) -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <h4 class="text-gradient mb-3">About This Project</h4>
-        </div>
-
-        <!-- Card 1 -->
-        <div class="col-md-4 mb-3">
-            <div class="card about-card hover-effect clickable" data-target="#info1">
-                <div class="card-body text-center">
-                    <h5 class="fw-bold">Manage Clients</h5>
-                    <p class="text-muted mb-0">Click to learn more</p>
-                </div>
-            </div>
-            <div id="info1" class="about-details collapse">
-                <div class="card card-body mt-2 shadow-sm">
-                    Keep track of client information, categorize them and view their billing history.
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-md-4 mb-3">
-            <div class="card about-card hover-effect clickable" data-target="#info2">
-                <div class="card-body text-center">
-                    <h5 class="fw-bold">Real-Time Insights</h5>
-                    <p class="text-muted mb-0">Click to learn more</p>
-                </div>
-            </div>
-            <div id="info2" class="about-details collapse">
-                <div class="card card-body mt-2 shadow-sm">
-                    Get real-time updates on daily, monthly, and total revenues with visual analytics and charts.
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-md-4 mb-3">
-            <div class="card about-card hover-effect clickable" data-target="#info3">
-                <div class="card-body text-center">
-                    <h5 class="fw-bold">Custom Reports</h5>
-                    <p class="text-muted mb-0">Click to learn more</p>
-                </div>
-            </div>
-            <div id="info3" class="about-details collapse">
-                <div class="card card-body mt-2 shadow-sm">
-                    Generate and download detailed billing reports with filtering options for improved business insights.
+        <!-- Pie Chart -->
+        <div class="col-md-4">
+            <div class="card shadow border-0 gradient-card-chart hover-effect">
+                <div class="card-body">
+                    <h5 class="text-gradient mb-3">Revenue Distribution</h5>
+                    <canvas id="pieChart" height="120"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Custom CSS -->
+<!-- Custom CSS (keep same gradient styles as before) -->
 <style>
-    /* Gradient styles */
     .gradient-card {
         border-radius: 15px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -134,48 +92,17 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-    /* Hover lift effect */
     .hover-effect:hover {
         transform: translateY(-6px);
         box-shadow: 0 10px 25px rgba(0, 157, 255, 0.5);
         cursor: pointer;
     }
-    /* About cards */
-    .about-card {
-        border-radius: 10px;
-        background: #fff;
-        border: 2px solid #e6f7ff;
-        transition: 0.3s ease;
-    }
-    .about-card:hover {
-        border-color: #009dff;
-    }
-    .about-details {
-        display: none;
-    }
-    .about-details.show {
-        display: block;
-        animation: fadeIn 0.3s ease;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
 </style>
-
-<!-- Script for toggle -->
-<script>
-    document.querySelectorAll('.clickable').forEach(card => {
-        card.addEventListener('click', () => {
-            const target = document.querySelector(card.dataset.target);
-            target.classList.toggle('show');
-        });
-    });
-</script>
 
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Line Chart Data
     const ctx = document.getElementById('salesChart').getContext('2d');
     const chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const chartData = @json($monthlyData);
@@ -199,6 +126,31 @@
             responsive: true,
             plugins: { legend: { display: true } },
             scales: { y: { beginAtZero: true } }
+        }
+    });
+
+    // Pie Chart Data
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    const pieData = {
+        labels: ['Today', 'This Month', 'Total'],
+        datasets: [{
+            data: [{{ $todaysSales }}, {{ $monthlySales }}, {{ $totalRevenue }}],
+            backgroundColor: ['#00eaff', '#009dff', '#66b3ff'],
+            borderWidth: 1
+        }]
+    };
+
+    new Chart(pieCtx, {
+        type: 'pie',
+        data: pieData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#333' }
+                }
+            }
         }
     });
 </script>
