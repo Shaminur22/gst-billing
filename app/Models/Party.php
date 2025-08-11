@@ -22,9 +22,7 @@ class Party extends Model
         'account_holder_name',
         'account_no',
         'bank_name',
-        'ifsc_code',
-        'zip_code',
-        'state',
+        'unique_code',
         'branch_address',
     ];
 }

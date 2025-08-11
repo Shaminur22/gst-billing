@@ -59,12 +59,27 @@ public function addGstBill()
         return redirect()->route('print-gst-bill', $bill->id)->withStatus("Bill created successfully");
     }
 
-    public function print($id, $currency = null)
-    {
-        $data['currency'] = $currency;
-        $data['company'] = DB::table('gst_bills')->where('id', $id)->first();
-        $data['bill'] = GstBill::where('id', 1)->with('party')->first();
-        return view("gst-bill.print", $data);
-    }
+public function print($id, $currency = null)
+{
+    $bill = GstBill::with('party')->findOrFail($id);
+
+    $cgstRate = $bill->cgst_rate ?? 0;
+    $sgstRate = $bill->sgst_rate ?? 0;
+    $igstRate = $bill->igst_rate ?? 0;
+
+    $bill->cgst_amount = $bill->total_amount * ($cgstRate / 100);
+    $bill->sgst_amount = $bill->total_amount * ($sgstRate / 100);
+    $bill->igst_amount = $bill->total_amount * ($igstRate / 100);
+
+    $bill->tax_amount = $bill->cgst_amount + $bill->sgst_amount + $bill->igst_amount;
+    $bill->net_amount = $bill->total_amount + $bill->tax_amount;
+
+    return view("gst-bill.print", [
+        'currency' => $currency ?? 'bdt',
+        'bill' => $bill,
+    ]);
+}
+
+
 
 }

@@ -47,7 +47,7 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
                                     <label for="validationCustom02" style="color:#fff;">Phone/Mobile Number</label>
-                                    <input type="text" name="phone_no" value="{{ old('phone_no') }}" class="form-control border-bottom" id="validationCustom02" placeholder="Enter phone/mobile number">
+                                    <input type="number" name="phone_no" value="{{ old('phone_no') }}" class="form-control border-bottom" id="validationCustom02" placeholder="Enter phone/mobile number">
                                     <div class="invalid-feedback">
                                         Please provide a Number.
                                     </div>
@@ -78,7 +78,7 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
                                     <label for="validationCustom05" style="color:#fff;">Account Number</label>
-                                    <input type="text" value="{{ old('account_no') }}" name="account_no" class="form-control border-bottom" id="validationCustom05" placeholder="Enter Account Number">
+                                    <input type="number" value="{{ old('account_no') }}" name="account_no" class="form-control border-bottom" id="validationCustom05" placeholder="Enter Account Number">
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                             <div class="col-md-4">
                                 <div class="form-group mb-3">
                                     <label for="validationCustom02" style="color:#fff;">Unique Code</label>
-                                    <input type="text" value="{{ old('ifsc_code') }}" name="ifsc_code" class="form-control border-bottom" id="validationCustom02" placeholder="Enter IFSC Code">
+                                    <input type="text" value="{{ old('unique_code') }}" name="unique_code" class="form-control border-bottom" id="validationCustom02" placeholder="Enter Unique Code">
                                 </div>
                             </div>
 

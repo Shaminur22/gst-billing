@@ -24,7 +24,7 @@
 
                 <h4 class="header-title mb-4 text-uppercase" style="color:#fff;">Manage Clients</h4>
 
-                <!-- Search and Length -->
+                <!--  Length -->
                 <div class="row mb-2">
                     <div class="col-sm-12 col-md-10">
                         <div class="dataTables_length">
@@ -34,17 +34,11 @@
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
-                                </select> entries
+                                </select> <h4 style="color: #fff; font-weight: bold;">entries</h4>
                             </label>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-2">
-                        <div class="dataTables_filter">
-                            <label style="color:#fff;">Search:
-                                <input type="search" class="form-control form-control-sm" placeholder="">
-                            </label>
-                        </div>
-                    </div>
+
                 </div>
 
                 <!-- Clients Table -->
@@ -71,7 +65,7 @@
                                         <li><b>Name :</b> {{ $party->full_name }}</li>
                                         <li><b>Phone/Email :</b> {{ $party->phone_no }}</li>
                                         <li><b>Address :</b> {{ $party->address }}</li>
-                                        <li><b>Unique Code :</b> {{ $party->ifsc_code }}</li>
+                                        <li><b>Unique Code :</b> {{ $party->unique_code }}</li>
                                     </ul>
                                 </td>
                                 <td>
@@ -124,7 +118,7 @@
                     <li class="list-group-item"><strong>Account Holder Name:</strong> {{ $party->account_holder_name }}</li>
                     <li class="list-group-item"><strong>Account Number:</strong> {{ $party->account_no }}</li>
                     <li class="list-group-item"><strong>Bank Name:</strong> {{ $party->bank_name }}</li>
-                    <li class="list-group-item"><strong>Unique Code:</strong> {{ $party->ifsc_code }}</li>
+                    <li class="list-group-item"><strong>Unique Code:</strong> {{ $party->unique_code }}</li>
                     <li class="list-group-item"><strong>Branch Address:</strong> {{ $party->branch_address }}</li>
                     <li class="list-group-item"><strong>Created On:</strong> {{ $party->created_at->format('d/m/Y') }}</li>
                 </ul>

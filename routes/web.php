@@ -25,8 +25,10 @@ Route::delete('/delete-party/{party}', [PartyController::class, 'deleteParty'])-
 //Gst bill routes
 Route::get('/add-gst-bill', [GstBillController::class, 'addGstBill'])->name('add-gst-bill');
 Route::get('/manage-gst-bills', [GstBillController::class, 'index'])->name('manage-gst-bills');
-Route::get('/print-gst-bill', [GstBillController::class, 'print'])->name('print-gst-bill');
+Route::get('/gst-bill/print/{id}/{currency?}', [GstBillController::class, 'print'])->name('print-gst-bill');
 Route::post('/create-gst-bill', [GstBillController::class, 'createGstBill'])->name('create-gst-bill');
 
 //delete gst bill
 Route::get('/delete/{table}/{id}', [AppController::class, 'delete'])->name('delete');
+
+

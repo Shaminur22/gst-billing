@@ -21,7 +21,7 @@ public function index()
         'account_holder_name',
         'account_no',
         'bank_name',
-        'ifsc_code',
+        'unique_code',
         'branch_address',
         'created_at'
     )
@@ -53,7 +53,7 @@ public function index()
                 'account_holder_name' => 'required',
                 'account_no' => 'required',
                 'bank_name' => 'required|max:255',
-                'ifsc_code' => 'required|max:50',
+                'unique_code' => 'required|max:50',
                 'branch_address' => 'required|max:255',
             ]);
 
@@ -84,7 +84,7 @@ public function index()
             'account_holder_name' => 'required',
             'account_no' => 'required',
             'bank_name' => 'required|max:255',
-            'ifsc_code' => 'required|max:50',
+            'unique_code' => 'required|max:50|unique:parties,unique_code,' . $id,
             'branch_address' => 'required|max:255',
         ]);
 
